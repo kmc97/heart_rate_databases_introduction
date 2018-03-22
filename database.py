@@ -2,6 +2,7 @@ from pymodm import connect
 from pymodm import MongoModel, fields
 import datetime
 import numpy as np
+import pandas
 
 connect("mongodb://localhost:27017/bme590") # connect to database
 emails = ('katierox@email.com')
@@ -40,11 +41,12 @@ def user_exist(email):
     return real_state
 
 def create_new_user(email, age, heart_rate, time):
+
+
     u = User(email, age, [],[])
     u.heart_rate.append(heart_rate)
     u.heart_rate_times.append(time)
     u.save()
-    print("user created")
 
 def add_heart_rate(email, heart_rate, time):
     u = User.objects.raw({"_id": email}).first() # Get the first user where _id=email
@@ -60,20 +62,45 @@ def return_all_hr(email):
 def return_avg_hr(email, heart_rate_values): 
     hr_avg = np.mean(heart_rate_values)
     return hr_avg    
+           
+def find_time_index(time_bound,time):
+    time_index = None
+    for i in range(0, len(time)):
+        if time_bound <= time[i]:
+            time_index = i
+            break
+   
+    return time_index
+
+def return_interval_hr(time_index, heart_rate):
+    hr_list = []
+    for i in range(0, len(heart_rate)):
+        if i >= time_index:
+            hr_list.append(heart_rate[i])
+    avg_interval_hr= np.mean(hr_list)
+    return avg_interval_hr
+        
+def obtain_hr_times_list(email):
+    hr = []
+    timestamps = []
+    for user in User.objects.raw({"_id": emails}):
+        hr.append(user.heart_rate)
+        timestamps.append(user.heart_rate_times)
+    hr = hr[0]
+    timestamps = timestamps[0]       
+    return [hr, timestamps]
 
 
-def return_avg_since(email, time_since):
-    u = User.objects.raw({"_id":email}).first()
-    hr_since = u.heart_rate(since_time= time_since)
-    avg_since = np.mean(avg_since)
-    print(avg_since)
-    
 
-#create_new_user('katierox@email.com', age = 99, heart_rate = 48 , time = datetime.datetime.now())
-for user in User.objects.raw({"_id": 'suyash@suyashkumar.com'}):
-    print(user.heart_rate_times)
 
-#user_exist(emails)
-#return_all_hr(emails)
-#print(return_avg_hr(emails, hr_values))
-#return_avg_since(emails,datetime.datetime.now())
+timestamp = (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+create_new_user( emails, age = 99, heart_rate = 48 , time = timestamp)
+add_heart_rate(emails, heart_rate =21, time = timestamp)
+
+hr = obtain_hr_times_list(emails)[0]
+timestamps = obtain_hr_times_list(emails)[1]
+
+index = find_time_index('2018-03-22 14:26:12', timestamps)
+
+print(return_interval_hr(index, hr))
+

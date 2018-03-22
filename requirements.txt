@@ -2,3 +2,4 @@ pymodm
 flask
 numpy
 gunicorn
+pandas
