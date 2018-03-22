@@ -44,7 +44,7 @@ def post_interval():
     except:
         print('not receiving data, try again in a bit this server seems to work sometimes :)')
 
-post_data() 
-#get_hr()
-#get_hr_avg()
-#post_interval()
+#post_data() 
+get_hr()
+get_hr_avg()
+post_interval()

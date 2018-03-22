@@ -2,4 +2,6 @@ pymodm
 flask
 numpy
 gunicorn
-pandas
+pytest
+pytest-cov
+pytest-pep8

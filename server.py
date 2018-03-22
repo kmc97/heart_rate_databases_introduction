@@ -28,13 +28,14 @@ def received_data():
     except:
         print('user DNE')
         create_new_user(email, age, heart_rate, datetime.datetime.now())
-    
+        return 400
+ 
     print_vals = {
         "user_email": email,
         "user_age": age,
         "heart_rate": heart_rate
     }
-    return jsonify(print_vals)
+    return jsonify(print_vals), 200
     
 
 @app.route('/api/heart_rate/<user_email>', methods = ['GET'])
@@ -52,7 +53,8 @@ def get_hr(user_email):
         }
     except:
         print('please create the user first')
-    return jsonify(hr)
+        return 400
+    return jsonify(hr), 200
     
 
 @app.route('/api/heart_rate/average/<user_email>', methods = ['GET'])
@@ -72,8 +74,9 @@ def get_avg_hr(user_email):
         }
     except:
         print('please create the user first')
+        return 400
 
-    return jsonify(avg_hr)
+    return jsonify(avg_hr), 200
 
 @app.route('/api/heart_rate/interval_average', methods = ['POST'])
 def post_interval_hr():
@@ -83,21 +86,25 @@ def post_interval_hr():
     :param user_email: user email
     :returns print_vals: average hr interval and the cuttoff time
     """
-
-    r = request.get_json()
-    email = r["user_email"]
-    time_cuttoff = r["heart_rate_average_since"]  
+   
+    try:
+        r = request.get_json()
+        email = r["user_email"]
+        time_cuttoff = r["heart_rate_average_since"]  
   
-    hr_int = obtain_hr_times_list(email)[0]
-    timestamps = obtain_hr_times_list(email)[1]
-    index = find_time_index(time_cuttoff, timestamps)
-    
+        hr = obtain_hr_times_list(email)[0]
+        timestamps = obtain_hr_times_list(email)[1]
+        index = find_time_index(time_cuttoff, timestamps)
+        hr_int = return_interval_hr(index, hr_int)    
 
-    print_vals = {
-        "avg_hr_interval" : hr_int,
-        "heart_rate_average_since": time_cuttoff
-    }
+        print_vals = {
+            "avg_hr_interval" : hr_int,
+            "heart_rate_average_since": time_cuttoff
+        }
+    except:
+        print('please create the user first')
+        return 400
 
-    return jsonify(print_vals)
+    return jsonify(print_vals),200
     
     
