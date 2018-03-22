@@ -31,6 +31,7 @@ def user_exist(email):
 
     try:
         exist = User.objects.raw({"_id": email}).first()
+        print("user exists")
         real_state = True
     except:
         print("User DNE")
@@ -43,6 +44,13 @@ def create_new_user(email, age, heart_rate, time):
     u.heart_rate.append(heart_rate)
     u.heart_rate_times.append(time)
     u.save()
+    print("user created")
+
+def add_heart_rate(email, heart_rate, time):
+    u = User.objects.raw({"_id": email}).first() # Get the first user where _id=email
+    u.heart_rate.append(heart_rate) # Append the heart_rate to the user's list of heart rates
+    u.heart_rate_times.append(time) # append the current time to the user's list of heart rate times
+    u.save() # save the user to the database
 
 def return_all_hr(email): 
     u = User.objects.raw({"_id": email}).first()
@@ -61,9 +69,10 @@ def return_avg_since(email, time_since):
     print(avg_since)
     
 
-create_new_user('katierox@email.com', age = 99, heart_rate = 48 , time = datetime.datetime.now())
-#for user in User.objects.raw({"_id": emails}):
- #   print(user.heart_rate_times)
+#create_new_user('katierox@email.com', age = 99, heart_rate = 48 , time = datetime.datetime.now())
+for user in User.objects.raw({"_id": 'suyash@suyashkumar.com'}):
+    print(user.heart_rate_times)
+
 #user_exist(emails)
 #return_all_hr(emails)
 #print(return_avg_hr(emails, hr_values))
