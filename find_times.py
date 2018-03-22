@@ -37,6 +37,7 @@ def is_tachy(avg_interval_hr, user_age):
     """ function that determines if user is tachy cardic based on wikipedia standards
     
     :param avg_interval_hr: avg heart rate value used in diagnosis
+    :param user_age: age of the user to determine if tachycardic
     :returns x: a flag, if x = 1 patient is tachycardic, if x = 0 they are not
     """
 
