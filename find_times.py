@@ -1,3 +1,4 @@
+import numpy as np
 def find_time_index(time_bound,time):
 
     """function that finds the index of the time stamps based on user input
@@ -30,23 +31,6 @@ def return_interval_hr(time_index, heart_rate):
             hr_list.append(heart_rate[i])
     avg_interval_hr= np.mean(hr_list)
     return avg_interval_hr
-
-def obtain_hr_times_list(email):
-
-    """function that finds hr and timestamps for a given user
-
-    :params email: user email
-    :return list: of heart rates and their respective timestamps
-    """
-
-    hr = []
-    timestamps = []
-    for user in User.objects.raw({"_id": emails}):
-        hr.append(user.heart_rate)
-        timestamps.append(user.heart_rate_times)
-    hr = hr[0]
-    timestamps = timestamps[0]
-    return [hr, timestamps]
 
 
 
