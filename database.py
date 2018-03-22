@@ -1,8 +1,10 @@
 from pymodm import connect
 from pymodm import MongoModel, fields
-from datetime import datetime
+import datetime
+import numpy as np
 
 connect("mongodb://localhost:27017/bme590") # connect to database
+emails = ('katierox@email.com')
 
 class User(MongoModel):
 
@@ -24,6 +26,7 @@ def user_exist(email):
 
     :param email: email of user
     :returns real_state: state of user id, true= exists
+    :raises ValueError: if user does not exist
     """
 
     try:
@@ -35,16 +38,33 @@ def user_exist(email):
 
     return real_state
 
-def create_user(email, age, heart_rate, time):
+def create_new_user(email, age, heart_rate, time):
     u = User(email, age, [],[])
     u.heart_rate.append(heart_rate)
     u.heart_rate_times.append(time)
     u.save()
 
+def return_all_hr(email): 
+    u = User.objects.raw({"_id": email}).first()
+    return u.heart_rate
+ 
 
-create_user('katierox@email.com', age = 99, heart_rate = 48 , time = datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-user_exist('katierox@email.com')
+def return_avg_hr(email, heart_rate_values): 
+    hr_avg = np.mean(heart_rate_values)
+    return hr_avg    
 
 
-for user in User.objects.raw({"age":99}):
-    print(user.heart_rate_times)
+def return_avg_since(email, time_since):
+    u = User.objects.raw({"_id":email}).first()
+    hr_since = u.heart_rate(since_time= time_since)
+    avg_since = np.mean(avg_since)
+    print(avg_since)
+    
+
+create_new_user('katierox@email.com', age = 99, heart_rate = 48 , time = datetime.datetime.now())
+#for user in User.objects.raw({"_id": emails}):
+ #   print(user.heart_rate_times)
+#user_exist(emails)
+#return_all_hr(emails)
+#print(return_avg_hr(emails, hr_values))
+#return_avg_since(emails,datetime.datetime.now())
