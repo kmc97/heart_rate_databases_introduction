@@ -33,42 +33,50 @@ def return_interval_hr(time_index, heart_rate):
     return avg_interval_hr
 
 def is_tachy(avg_interval_hr, user_age):
-    if (user_age > 1) and (user_age <2):
-        if avg_interval_hr > 151:
+
+    """ function that determines if user is tachy cardic based on wikipedia standards
+    
+    :param avg_interval_hr: avg heart rate value used in diagnosis
+    :returns x: a flag, if x = 1 patient is tachycardic, if x = 0 they are not
+    """
+
+    if (user_age >= 1) and (user_age <=2):
+        if avg_interval_hr >=151:
             x = 1
             print('Tachycardic')
         else:
             x = 0
 
-    if (user_age > 3) and (user_age <4):
-        if avg_interval_hr > 137:
+    if (user_age >= 3) and (user_age <=4):
+        if avg_interval_hr >= 137:
             x = 1
             print('Tachycardic')
         else:
             x = 0
 
-    if (user_age > 5) and (user_age <7):
-        if avg_interval_hr > 137:
+    if (user_age >= 5) and (user_age <=7):
+        if avg_interval_hr >= 137:
             x = 1
             print('Tachycardic')
         else:
             x = 0
 
-    if (user_age > 8) and (user_age <11):
-        if avg_interval_hr > 130:
+    if (user_age >= 8) and (user_age <=11):
+        if avg_interval_hr >= 130:
             x = 1
             print('Tachycardic')
         else:
             x = 0
-    if (user_age > 12) and (user_age <15):
-        if avg_interval_hr > 119:
+    if (user_age >= 12) and (user_age <=15):
+        if avg_interval_hr >= 119:
             x = 1
             print('Tachycardic')
         else:
             x = 0
-    if (user_age > 15):
-        if avg_interval_hr > 100:
+    if (user_age >= 15):
+        if avg_interval_hr >= 100:
             x = 1
             print('Tachycardic')
         else:
             x = 0
+    return x

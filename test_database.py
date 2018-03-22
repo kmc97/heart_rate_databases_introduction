@@ -14,6 +14,19 @@ def test_time_index():
 def test_return_avg_hr():
     from find_times import return_interval_hr
     time_index = 2
-    heart_rate = [74, 42,  99, 82, 132, 70]
+    heart_rate = [74, 42,  99, 80, 80, 80]
     avg = return_interval_hr(time_index, heart_rate)
-### #   assert (avg == np.mean([82,132,70])
+    assert avg == 84.75 
+
+
+def test_tachy():
+    from find_times import is_tachy
+    avg_interval_hr = 180
+    age1 = 1
+    x = is_tachy(avg_interval_hr,age1)
+    assert x ==1
+
+    avg_interval1 = 50
+    age2 = 49
+    x = is_tachy(avg_interval1,age2)
+    assert x == 0 
