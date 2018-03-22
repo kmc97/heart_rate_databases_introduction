@@ -1,4 +1,5 @@
-from database import return_all_hr, return_avg_hr, user_exist, create_new_user, add_heart_rate, obtain_hr_times_list, find_time_index, return_interval_hr
+from database import return_all_hr, return_avg_hr, user_exist, create_new_user, add_heart_rate, obtain_hr_times_list
+from find_times import find_time_index, return_interval_hr
 import datetime
 from flask import Flask, jsonify, request
 from pymodm import connect
@@ -94,12 +95,20 @@ def post_interval_hr():
   
         hr = obtain_hr_times_list(email)[0]
         timestamps = obtain_hr_times_list(email)[1]
+        age = obtain_hr_times(email)[2]
         index = find_time_index(time_cuttoff, timestamps)
         hr_int = return_interval_hr(index, hr_int)    
 
+        is_tachy(hr_int, age)
+        if (x == 1):
+            status = 'Alert Tachycardic'
+        else:
+            status= 'not tachycardic'
+
         print_vals = {
             "avg_hr_interval" : hr_int,
-            "heart_rate_average_since": time_cuttoff
+            "heart_rate_average_since": time_cuttoff,
+            "tachycardic?" :status
         }
     except:
         print('please create the user first')
