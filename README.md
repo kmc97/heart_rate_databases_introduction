@@ -1,4 +1,7 @@
 # heart_rate_databases_introduction
+
+[![Build Status](https://travis-ci.org/kmc97/heart_rate_databases_introduction.svg?branch=master)](https://travis-ci.org/kmc97/heart_rate_databases_introduction)
+
 This code is to be used on a virtual machine and utilizes the starter codebase for BME590 Databases Assignment (which can be found [here](https://github.com/mlp6/Medical-Software-Design/blob/master/Lectures/databases/main.md#mini-projectassignment)). 
 
 To get started with this code, you first need to get the mongodb program running. To do this, simply run 
