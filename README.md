@@ -15,7 +15,7 @@ gunicorn --bind 0.0.0.0:5000 server:app
 The following programs are in the repository:
 
 server.py: the program that is run with GUNICORN, the backend server for this project. It has 4 possible GET/POST connections detailed below
-    - POST api/heart_rate (which stores a user post into the MongosDB database):
+- POST api/heart_rate (which stores a user post into the MongosDB database):
     data must be entered as
 ```  
 data = {
