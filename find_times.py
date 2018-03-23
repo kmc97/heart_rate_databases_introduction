@@ -86,6 +86,13 @@ def is_tachy(avg_interval_hr, user_age):
     return x
 
 def validate_inputs(post):
+
+    """function validates the user inputs from initial post (no missing data, correct format)
+
+    :param post: format {'user_email': ' ', 'user_age': int, 'heart_rate': int
+    :raises ValueError: creates value error for incomplete or incorrect data
+    """
+
     if 'user_email' not in post:
         raise ValueError('missing email in post, trya again')
     else:
@@ -104,6 +111,6 @@ def validate_inputs(post):
     if 'user_age' not in post:
         raise ValueError('missing user age in post')
     else:
-        if not isinstance(post['user age'], int):
+        if not isinstance(post['user_age'], int):
             raise ValueError('age must be a single integer')
         pass
