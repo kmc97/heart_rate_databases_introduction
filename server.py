@@ -1,4 +1,4 @@
-from database import return_all_hr, return_avg_hr, user_exist, create_new_user, add_heart_rate, obtain_hr_times_list
+from database import return_all_hr, return_avg_hr, user_exist, create_new_user, add_heart_rate, return_all_times, return_user_age
 from find_times import find_time_index, return_interval_hr, is_tachy, validate_inputs
 import datetime
 from flask import Flask, jsonify, request
@@ -9,7 +9,6 @@ connect("mongodb://localhost:27017/bme590")
 #connect("mongodb://vcm-3738.vm.duke.edu:27017/bme590")
 
 @app.route('/api/heart_rate', methods = ['POST'])
-
 def received_data():
     """ Function takes in json post from user, validates the input from the user, checks if user exists and enters data into database
     
@@ -49,7 +48,7 @@ def get_hr(user_email):
     """
  
     try:
-        user_exist(email)
+        user_exist(user_email)
         hr = {
             "all hr" : return_all_hr(user_email)
         }
@@ -69,7 +68,7 @@ def get_avg_hr(user_email):
     """
 
     try:
-        user_exist(email)
+        user_exist(user_email)
         hr = return_all_hr(user_email)
         avg_hr= {
             "heart_rate": return_avg_hr(user_email, hr)
@@ -94,17 +93,17 @@ def post_interval_hr():
     try:
         r = request.get_json()
         email = r["user_email"]
-        time_cuttoff = r["heart_rate_average_since"]  
-        user_exists(email)  
+        time_cuttoff = r["heart_rate_average_since"]
+ 
+        user_exist(email)  
 
-
-        hr = obtain_hr_times_list(email)[0]
-        timestamps = obtain_hr_times_list(email)[1]
-        age = obtain_hr_times(email)[2]
-
+        hr = return_all_hr(email)
+        timestamps = return_all_times(email)
+        age = return_user_age(email)
+    
         index = find_time_index(time_cuttoff, timestamps)
-        hr_int = return_interval_hr(index, hr_int)    
-
+        hr_int = return_interval_hr(index, hr)    
+ 
         x= is_tachy(hr_int, age)
 
         if (x == 1):
@@ -117,9 +116,9 @@ def post_interval_hr():
             "heart_rate_average_since": time_cuttoff,
             "tachycardic?" :status
         }
-
+      
         return jsonify(print_vals), 200
 
     except:
         return 400
-    
+ 

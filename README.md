@@ -29,7 +29,7 @@ data = {
   ```  
 - GET /api/heart_rate/<user_email> (returns all hr for a given user)
 - GET /api/heart_rate/average/<user_email> (returns avg heart rate over all users)
-- POST /api/heart_rate/interval_average (returns avg heart rate over user specified interval AND if user is tachycardic)
+- POST /api/heart_rate/interval_average (returns avg heart rate over user specified interval AND if user is tachycardic). this program works in my tests but couldnt quite get it to work over the server, im not sure what the error means.
     data must be entered as *NOTE this program does not expect the float at the end of timestamp*:
    
    ```
@@ -42,7 +42,7 @@ database.py: contains functions that interact with mongosDB. server pulls these 
 
 find_times.py: contains functions that *DONT* interact with mongosDB (easier to test). server pulls functions
 
-client.py: used to test server. for some reason, sometimes the client recieves the json data, but other times it does not-- even when i dont change anythin and run the same exact program. i believe it is because there are too many connections to mongos db on my computer but im not sure nor do i know how to fix it. but it works sometimes lol
+client.py: used to test server
 
 test_database.py: tests find_times (functions that do not interact with FLASK or MONGOSdb)
     - testing only works on the local computer NOT the virtualenv (because we like to make things easy)    

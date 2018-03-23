@@ -1,4 +1,5 @@
 import numpy as np
+
 def find_time_index(time_bound,time):
 
     """function that finds the index of the time stamps based on user input
@@ -14,7 +15,7 @@ def find_time_index(time_bound,time):
             if time_bound <= time[i]:
                 time_index = i
                 break
-    
+
         return time_index
     except:
         print('Error finding time index, ensure time bound input as string %Y-%d-%m %H:%M:%S')

@@ -38,6 +38,7 @@ def user_exist(email):
 
     return real_state
 
+
 def create_new_user(email, age, heart_rate, time):
 
     """ function to create new user and save entry in database
@@ -79,7 +80,25 @@ def return_all_hr(email):
     u = User.objects.raw({"_id": email}).first()
     return u.heart_rate
  
+def return_all_times(email):
 
+    """ function returns list of timestamps
+
+    :param email: user email
+    :returns u.heart_rate_times: list of heart rate timestamps
+    """
+    u = User.objects.raw({"_id": email}).first() 
+    return u.heart_rate_times
+
+def return_user_age(email):
+    """ function returns users age
+
+    :param email: user email
+    :returns u.age: user age
+    """
+    u = User.objects.raw({"_id": email}).first()
+    return u.age
+ 
 def return_avg_hr(email, heart_rate_values):
  
     """ function returns average of all heart rates
@@ -91,37 +110,4 @@ def return_avg_hr(email, heart_rate_values):
  
     hr_avg = np.mean(heart_rate_values)
     return hr_avg    
-           
-        
-def obtain_hr_times_list(email):
     
-    """function that finds hr and timestamps for a given user
-
-    :params email: user email
-    :return list: of heart rates and their respective timestamps
-    """
-
-    hr = []
-    timestamps = []
-    for user in User.objects.raw({"_id": emails}):
-        hr.append(user.heart_rate)
-        timestamps.append(user.heart_rate_times)
-        age = user.age
-    hr = hr[0]
-    timestamps = timestamps[0]       
-    return [hr, timestamps, age]
-
-
-
-
-#timestamp = (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-#create_new_user( emails, age = 99, heart_rate = 48 , time = timestamp)
-#add_heart_rate(emails, heart_rate =21, time = timestamp)
-
-#hr = obtain_hr_times_list(emails)[0]
-#timestamps = obtain_hr_times_list(emails)[1]
-
-#index = find_time_index('2018-03-22 14:26:12', timestamps)
-
-#print(return_interval_hr(index, hr))
-

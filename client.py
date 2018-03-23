@@ -1,5 +1,6 @@
 import requests
 
+email = 'ktc@email.com'
 
 def get_hr():
     r = requests.get("http://vcm-3738.vm.duke.edu:5000/api/heart_rate/katierox@email.com")
@@ -19,7 +20,7 @@ def get_hr_avg():
 
 def post_data():
     data = {
-        "user_email": "katierox@email.com",
+        "user_email": email,
         "user_age": 50,
         "heart_rate": 190
     }
@@ -33,8 +34,8 @@ def post_data():
 
 def post_interval():
     data = {
-        "user_email": "katierox@email.com",
-        "heart_rate_average_since": "2018-03-22 11:00:36"
+        "user_email": email,
+        "heart_rate_average_since": '2018-03-22 14:26:12'
     } 
  
     r = requests.post("http://vcm-3738.vm.duke.edu:5000/api/heart_rate/interval_average", json=data)
@@ -44,7 +45,7 @@ def post_interval():
     except:
         print('not receiving data, try again in a bit this server seems to work sometimes :)')
 
-#post_data() 
-#get_hr()
-#get_hr_avg()
-post_interval()
+post_data() 
+get_hr()
+get_hr_avg()
+#post_interval()
