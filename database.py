@@ -4,7 +4,7 @@ import datetime
 import numpy as np
 
 connect("mongodb://localhost:27017/bme590") # connect to database
-
+#connect("mongodb://vcm-3738.vm.duke.edu:27017/bme590")
 class User(MongoModel):
 
     """ class creates user for Mongo Database

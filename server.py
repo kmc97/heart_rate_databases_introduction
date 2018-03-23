@@ -6,7 +6,7 @@ from pymodm import connect
 
 app = Flask(__name__)
 connect("mongodb://localhost:27017/bme590")
-
+#connect("mongodb://vcm-3738.vm.duke.edu:27017/bme590")
 
 @app.route('/api/heart_rate', methods = ['POST'])
 
