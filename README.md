@@ -26,7 +26,7 @@ data = {
   ```  
 - GET /api/heart_rate/<user_email> (returns all hr for a given user)
 - GET /api/heart_rate/average/<user_email> (returns avg heart rate over all users)
-- POST /api/heart_rate/interval_average (returns avg heart rate over user specified interval)
+- POST /api/heart_rate/interval_average (returns avg heart rate over user specified interval AND if user is tachycardic)
     data must be entered as *NOTE this program does not expect the float at the end of timestamp*:
    
    ```
