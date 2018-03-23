@@ -52,6 +52,7 @@ def create_new_user(email, age, heart_rate, time):
     u.heart_rate.append(heart_rate)
     u.heart_rate_times.append(time)
     u.save()
+    print('user created')
 
 def add_heart_rate(email, heart_rate, time):
     
