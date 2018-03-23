@@ -7,14 +7,17 @@ def find_time_index(time_bound,time):
     :param time: list of timestamps
     :return time_index: the index of the last time stamp
     """
-
-    time_index = None
-    for i in range(0, len(time)):
-        if time_bound <= time[i]:
-            time_index = i
-            break
-
-    return time_index
+    
+    try:
+        time_index = None
+        for i in range(0, len(time)):
+            if time_bound <= time[i]:
+                time_index = i
+                break
+    
+        return time_index
+    except:
+        print('Error finding time index, ensure time bound input as string %Y-%d-%m %H:%M:%S')
 
 def return_interval_hr(time_index, heart_rate):
 
@@ -81,3 +84,26 @@ def is_tachy(avg_interval_hr, user_age):
         else:
             x = 0
     return x
+
+def validate_inputs(post):
+    if 'user_email' not in post:
+        raise ValueError('missing email in post, trya again')
+    else:
+        if not isinstance(post['user_email'], str):
+            raise ValueError('email must be a string in email format')
+    
+        pass
+
+    if 'heart_rate' not in post:
+       raise ValueError('missing heart rate value in post')
+    else: 
+        if not isinstance(post['heart_rate'], int):
+            raise ValueError('Heart Rate must be a single integer')
+        pass
+
+    if 'user_age' not in post:
+        raise ValueError('missing user age in post')
+    else:
+        if not isinstance(post['user age'], int):
+            raise ValueError('age must be a single integer')
+        pass
