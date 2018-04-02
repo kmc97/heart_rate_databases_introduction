@@ -3,8 +3,10 @@ from find_times import find_time_index, return_interval_hr, is_tachy, validate_i
 import datetime
 from flask import Flask, jsonify, request
 from pymodm import connect
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 connect("mongodb://localhost:27017/bme590")
 #connect("mongodb://vcm-3738.vm.duke.edu:27017/bme590")
 
@@ -44,17 +46,17 @@ def get_hr(user_email):
     """Function makes sure user exists before retreiving all hr for a given user
 
     :param user_email: user email
-    :returns hr: all hr values for user   
+    :returns hr: tuple of all hr values for user and associated times
     """
  
     try:
         user_exist(user_email)
         hr = {
-            "all hr" : return_all_hr(user_email)
+            "all_hr" : [return_all_hr(user_email), return_all_times(user_email)]
         }
-
+#        hr = return_all_hr(user_email)
         return jsonify(hr), 200
-
+#	return hr
     except:
         return 400
     
